@@ -15,8 +15,6 @@ static void on_activate(GtkApplication *app, gpointer data)
     for (int i = 0; i < 100; ++i) {
         point[i].x = i;
         point[i].y = sin(i * 0.9f);
-        double x = point[i].x;
-        double y = point[i].y;
     }
     GtkWidget *window = gtk_application_window_new(app);
     gtk_window_set_default_size(GTK_WINDOW(window), 1024, 768);

@@ -2,7 +2,6 @@
 #define GTKCHARTS_H
 
 #include <stdlib.h>
-//#include <glib-object.h>
 #include <gtk/gtk.h>
 
 #define GTK_CHARTS_TYPE (gtk_charts_get_type())
