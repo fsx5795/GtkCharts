@@ -19,8 +19,8 @@ static void on_activate(GtkApplication *app, gpointer data)
     GtkWidget *window = gtk_application_window_new(app);
     gtk_window_set_default_size(GTK_WINDOW(window), 1024, 768);
     GtkWidget *charts = gtk_charts_new();
+    gtk_window_set_child(GTK_WINDOW(window), charts);
     gtk_charts_set_data(GTK_CHARTS(charts), point, 100);
-    gtk_container_add(GTK_CONTAINER(window), charts);
-    gtk_widget_show_all(window);
+    gtk_widget_show(window);
     return;
 }

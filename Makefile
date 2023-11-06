@@ -1,7 +1,7 @@
 APP = gtkcharts
 SRCS = $(wildcard *.c)
 OBJS = $(patsubst %.c, %.o, $(SRCS))
-CFLAGS = `pkg-config --cflags --libs gtk+-3.0`
+CFLAGS = `pkg-config --cflags --libs gtk4`
 $(APP) : $(OBJS)
 	$(CC) $^ -o $@ ${CFLAGS} -lm
 %.o: %.c

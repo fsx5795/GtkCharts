@@ -77,14 +77,8 @@ static struct Size get_string_size(PangoLayout *layout, const char *str)
     return size;
 }
 
-static bool on_draw(GtkWidget *widget, GdkEventExpose *event, gpointer data)
+static void draw_func(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer data)
 {
-    GdkWindow *window = gtk_widget_get_window(widget);
-    int width = gdk_window_get_width(window);
-    int height = gdk_window_get_height(window);
-    cairo_region_t *region = cairo_region_create();
-    GdkDrawingContext *context = gdk_window_begin_draw_frame(window, region);
-    cairo_t *cr = gdk_drawing_context_get_cairo_context(context);
     cairo_move_to(cr, 50, 50);
     cairo_line_to(cr, 50, height - 50);
     cairo_line_to(cr, width - 50, height - 50);
@@ -156,16 +150,14 @@ static bool on_draw(GtkWidget *widget, GdkEventExpose *event, gpointer data)
     }
     g_object_unref(layout);
     cairo_stroke(cr);
-    gdk_window_end_draw_frame(window, context);
-    cairo_region_destroy(region);
-    g_signal_emit(G_OBJECT(widget), chartsSignals[CHARTS_SIGNAL], 0);
-    return false;
+    g_signal_emit(G_OBJECT(area), chartsSignals[CHARTS_SIGNAL], 0);
+    return;
 }
 
 GtkWidget* gtk_charts_new(void)
 {
     GtkWidget *charts = GTK_WIDGET(g_object_new(GTK_CHARTS_TYPE, 0));
-    g_signal_connect(charts, "draw", G_CALLBACK(on_draw), GTK_CHARTS(charts)->points);
+    gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(charts), draw_func, GTK_CHARTS(charts)->points, NULL);
     return charts;
 }
 
