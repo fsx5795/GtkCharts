@@ -43,6 +43,10 @@ GType gtk_charts_get_type(void)
 void gtk_charts_init(GtkCharts *charts)
 {
     charts->points = malloc(sizeof(struct Points));
+    if (charts->points != NULL) {
+		charts->points->leng = 0;
+		charts->points->pt = NULL;
+    }
     return;
 }
 
